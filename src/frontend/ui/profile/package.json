@@ -1,0 +1,15 @@
+{
+  "name": "@hrms-workspace/frontend/ui/profile",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    }
+  },
+  "devDependencies": {
+    "@types/react-datepicker": "^4.10.0"
+  }
+}
