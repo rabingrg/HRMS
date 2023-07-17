@@ -158,7 +158,7 @@ export function Department() {
           </div>
           <div className="ml-[8px] md:ml-[0px]">
             <button
-              onClick={() => navigate('/addHolidayByGroup/0')}
+              onClick={() => navigate('/addDepartment/0')}
               className="bg-secondary px-[8px] pr-[20px] pl-[12px] py-3 text-white-12 flex items-center font-[500] text-[14px] leading-[16px] rounded-[4px]"
             >
               <PlusIcon className="mr-[8px] " /> Add
