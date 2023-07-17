@@ -27,7 +27,7 @@ import { useQuery, useMutation } from 'react-query';
 import { request } from '@hrms-workspace/frontend/utils';
 import { log } from 'console';
 
-export function HolidayByGrp() {
+export const HolidayByGrp=()=> {
   const logInUserData = Store((state: StoreType) => state.logInUserData);
   const currentYrBs = new Date().getFullYear() + 57;
   const [yearBS, setYearBS] = useState<number>(currentYrBs);
@@ -145,7 +145,7 @@ export function HolidayByGrp() {
           </div>
           <div className="ml-[8px] md:ml-[0px]">
             <button
-              onClick={() => navigate('/addHolidayByGrp/0')}
+              onClick={() => navigate('/addHolidayByGrp')}
               className="bg-secondary px-[8px] pr-[20px] pl-[12px] py-3 text-white-12 flex items-center font-[500] text-[14px] leading-[16px] rounded-[4px]"
             >
               <PlusIcon className="mr-[8px] " /> Add
@@ -264,4 +264,4 @@ export function HolidayByGrp() {
   );
 }
 
-export default HolidayByGrp;
+// export default HolidayByGrp;
