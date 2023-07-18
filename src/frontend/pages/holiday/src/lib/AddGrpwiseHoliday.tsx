@@ -1,36 +1,41 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Store } from '@hrms-workspace/frontend/store';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Store } from "@hrms-workspace/frontend/store";
 import {
   HolidayByCalYearAndGrp,
   HolidayGroup,
   InsertGroupWiseHoliday,
   StoreType,
-} from '@hrms-workspace/frontend/types';
-import { DropDown } from '@hrms-workspace/frontend/ui/dropdown';
-import { AppTextField } from '@hrms-workspace/frontend/ui/text-field';
-import { request } from '@hrms-workspace/frontend/utils';
-import { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useMutation, useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import { AddGrpWiseSchema } from './AddGrpWiseSchema';
+} from "@hrms-workspace/frontend/types";
+import { DropDown } from "@hrms-workspace/frontend/ui/dropdown";
+import { AppTextField } from "@hrms-workspace/frontend/ui/text-field";
+import { request } from "@hrms-workspace/frontend/utils";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation, useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { AddGrpWiseSchema } from "./AddGrpWiseSchema";
 // const {} = useContext({YearC})
 
 export const AddGrpwiseHoliday = () => {
   const logInUserData = Store((state: StoreType) => state.logInUserData);
   const accessToken = logInUserData.accessToken as string;
-//   const {} = useContext({YearContext})
-  
+  //   const {} = useContext({YearContext})
+
   const navigate = useNavigate();
-  const { register, handleSubmit, reset, formState:{errors} } = useForm({resolver: yupResolver(AddGrpWiseSchema)});
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(AddGrpWiseSchema) });
 
   const [hGrp, sethGrp] = useState<HolidayGroup[]>([]);
   const [holidays, setHolidays] = useState<HolidayByCalYearAndGrp[]>([]);
-  
+
   const { refetch } = useQuery(
-    ['holidayGrp'],
-    () => request.holiday.getHolidayGrp(accessToken, ''),
+    ["holidayGrp"],
+    () => request.holiday.getHolidayGrp(accessToken, ""),
     {
       onSuccess(data) {
         // console.log("grp_data",data.data);
@@ -39,7 +44,7 @@ export const AddGrpwiseHoliday = () => {
     }
   );
   const { data } = useQuery(
-    ['holidayList'],
+    ["holidayList"],
     () => request.holiday.getHolidayByYrandGrp(accessToken, 2080),
     {
       onSuccess(data) {
@@ -49,24 +54,31 @@ export const AddGrpwiseHoliday = () => {
   );
   // console.log('list',holidays);
 
-  const { mutateAsync } = useMutation((body: InsertGroupWiseHoliday) =>
-    request.holiday.addGrpWiseHoliday(accessToken, body),{
-        onSuccess(){
-            toast.success('Success',{
-                position:toast.POSITION.BOTTOM_RIGHT
-            })
-        },
-        onError(){
-            toast.error("Error in adding",{
-                position:toast.POSITION.BOTTOM_RIGHT
-            })
-        }
+  const { mutateAsync } = useMutation(
+    (body: InsertGroupWiseHoliday) =>
+      request.holiday.addGrpWiseHoliday(accessToken, body),
+    {
+      onSuccess() {
+        toast.success("Success", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      },
+      onError() {
+        toast.error("Error in adding", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      },
     }
   );
 
   const submitFn = (data: InsertGroupWiseHoliday) => {
     data.holidays = Object.values(data.holidays);
-    mutateAsync(data);
+    if (data.holidays.length === 1) {
+      mutateAsync(data);
+    } else {
+      const holidayArray = String(data.holidays[0]) + String(data.holidays[1]);
+      data.holidays = [Number(holidayArray)];
+    }
     console.log(data);
     reset();
   };
@@ -85,7 +97,7 @@ export const AddGrpwiseHoliday = () => {
             <div>
               <DropDown text="Group">
                 <select
-                  {...register('hGrpId')}
+                  {...register("hGrpId")}
                   className="border-1 py-[0.306rem] px-[0.656rem] border-[#9CA3AF] h-[2.3rem] active:border-[#2563EB] rounded-[0.375rem] bg-[#FFFFFF]  w-full"
                 >
                   <option value="">Enter Group</option>
@@ -94,11 +106,14 @@ export const AddGrpwiseHoliday = () => {
                   ))}
                 </select>
               </DropDown>
+              <p className="text-error-10  h-[0.375rem] text-[0.625rem] font-medium">
+                {errors.hGrpId?.message as string}
+              </p>
             </div>
             <div>
               <DropDown text="Holiday Name">
                 <select
-                  {...register('holidays')}
+                  {...register("holidays")}
                   className="border-1 py-[0.306rem] px-[0.656rem] border-[#9CA3AF] h-[2.3rem] active:border-[#2563EB] rounded-[0.375rem] bg-[#FFFFFF]  w-full"
                 >
                   <option value="">Enter Holiday</option>
@@ -115,14 +130,14 @@ export const AddGrpwiseHoliday = () => {
           <div className="flex  pt-[24px] space-x-2">
             <button
               className=" bg-[#ffff]  border border-secondary  text-secondary lg:w-[7.688rem] lg:h-[2.25rem] rounded-[4px] font-medium text-[0.75rem] text-center hover:shadow-custom hover:bg-[#FCE5CF] w-full h-[2.25rem] "
-              onClick={() => navigate('/grpWiseHoliday')}
+              onClick={() => navigate("/grpWiseHoliday")}
             >
               Back
             </button>
 
             <input
               type="submit"
-              value={'Submit'}
+              value={"Submit"}
               className=" bg-secondary border text-[#ffff] lg:w-[140px] lg:h-[2.25rem] rounded-[4px] font-medium text-[0.75rem] text-center  cursor-pointer hover:shadow-custom w-full h-[2.25rem] "
             />
           </div>
