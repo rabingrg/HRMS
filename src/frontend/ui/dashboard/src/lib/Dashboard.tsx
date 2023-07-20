@@ -175,7 +175,7 @@ export function Dashboard(props: DashboardProps) {
           >
             {open ? (
               <div
-              className=" rounded-md bg-[#F38218] hidden lg:flex w-8 h-8 absolute items-center justify-center top-[1.525rem] right-0.5"
+              className=" rounded-md bg-[#F38218] hidden lg:flex w-10 h-10 absolute items-center justify-center top-[1.26rem] right-[4.758px]"
               onClick={() => setOpen(!open)}
             >
               <ChevronLeftIcon className="text-base cursor-pointer text-primary-3" />
@@ -202,7 +202,7 @@ export function Dashboard(props: DashboardProps) {
 
                     <TextField.Root>
                       {(id) => (
-                        <div className="flex w-full lg:w-[95%] bg-primary-3 items-center rounded-md space-x-2 group focus-within:bg-primary-4">
+                        <div className="flex w-full lg:w-[90.5%] bg-primary-3 items-center rounded-md space-x-2 group focus-within:bg-primary-4">
                           <TextField.PrefixSuffix className="text-gray-11 group-focus-within:text-gray-11">
                             <MagnifyingGlassIcon className="text-[#F38218] ml-2 text-3xl h-6 w-6" />
                           </TextField.PrefixSuffix>
