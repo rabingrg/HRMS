@@ -17,6 +17,7 @@ import { DropDown } from '@hrms-workspace/frontend/ui/dropdown';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
+import { AddHolidaySchema } from './AddHolidaySchema';
 
 export function AddHoliday() {
   const logInUserData = Store((state: StoreType) => state.logInUserData);
@@ -33,13 +34,13 @@ export function AddHoliday() {
     register,
     handleSubmit,
     reset,
-    // formState: { errors },
+    formState: {errors}
   } = useForm({
-    // resolver: yupResolver(FormSchema),
+    resolver: yupResolver(AddHolidaySchema)
   });
 
   const { id } = useParams();
-  console.log('iddd',id);
+  // console.log('iddd',id);
   
 
   const CheckFullDay = [
@@ -116,7 +117,7 @@ export function AddHoliday() {
                 placeholder="Enter Holiday Name"
               />
               <p className="text-error-10  h-[0.375rem] text-[0.625rem] font-medium">
-                {/* {errors.section_en?.message as string} */}
+                {errors.holidayName_en?.message as string}
               </p>
             </div>
             <div>
@@ -127,7 +128,7 @@ export function AddHoliday() {
                 placeholder="Enter Holiday Name"
               />
             </div>
-            <div>
+            <div  className='mb-[0.375rem]'>
               <AppTextField
                 {...register('holidayDate')}
                 type="date"
