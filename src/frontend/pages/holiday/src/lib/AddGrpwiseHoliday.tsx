@@ -102,7 +102,7 @@ export const AddGrpwiseHoliday = () => {
                 >
                   <option value="">Enter Group</option>
                   {hGrp.map((gp) => (
-                    <option value={gp.hGrpId}>{gp.holidayGroup}</option>
+                    <option key={gp.hGrpId} value={gp.hGrpId}>{gp.holidayGroup}</option>
                   ))}
                 </select>
               </DropDown>
@@ -118,7 +118,7 @@ export const AddGrpwiseHoliday = () => {
                 >
                   <option value="">Enter Holiday</option>
                   {holidays.map((gp) => (
-                    <option value={gp.holidayId}>{gp.holidayName}</option>
+                    <option key={gp.holidayId} value={gp.holidayId}>{gp.holidayName}</option>
                   ))}
                 </select>
               </DropDown>

@@ -144,7 +144,7 @@ export function AddHoliday() {
                 >
                   <option value="">Select Full Day</option>
                   {CheckFullDay.map((ch) => (
-                    <option value={ch.value}>{ch.label}</option>
+                    <option key={ch.id} value={ch.value}>{ch.label}</option>
                   ))}
                 </select>
               </DropDown>
