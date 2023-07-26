@@ -13,6 +13,8 @@ export interface StoreType {
   employeedata:InsUpEmpInfoType;
   setEmployeeData:(data:InsUpEmpInfoType)=>void;
   setIsEn: (data: boolean) => void;
+  menuFocus: number | null;
+  setMenuFocus: (data:number | null )=> void;
   logInUserData: LogInUserType;
   allUsersData: GetAllUsersType;
   getLogInUserData: (data: LogInUserType) => void;
