@@ -19,6 +19,8 @@ import { DivisionType,DivisionDataType } from '@hrms-workspace/frontend/types';
 
 const useStore = create<StoreType>((set) => ({
   isEn: true,
+  menuFocus: 0,
+  setMenuFocus: (data:number)=>set({menuFocus:data}),
   setIsEn: (data: boolean) => set({ isEn: data }),
   logInUserData: {
     userId: 0,
